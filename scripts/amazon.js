@@ -1,4 +1,6 @@
 let ProductsHTML = '';
+import {products} from '../data/products.js';
+import {AddtoCart, displayMessage} from '../data/cart.js';
 
 products.forEach((product)=> {
     ProductsHTML += 
@@ -42,7 +44,7 @@ products.forEach((product)=> {
 
     <div class="product-spacer"></div>
 
-    <div class="added-to-cart">
+    <div class="added-to-cart add-${product.id}">
       <img src="images/icons/checkmark.png">
       Added
     </div>
@@ -58,24 +60,11 @@ document.querySelector('.products-grid').innerHTML = ProductsHTML;
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
                 button.addEventListener('click',() => {
                     const Productid = button.dataset.productId;
-                    let matchingitem;
-                    cart.forEach((product)=> {
-                        if (Productid === product.id){
-                            matchingitem = product;
-                            }
-                        })
-                        let quant = document.querySelector(`.js-quantity-${Productid}`);
-                        let quan = quant.value;
-                        let val = Number(quan);
-                    if(matchingitem){
-                        matchingitem.quantity+=val;
-                        total+=val;
-                    }
-                    else{
-                        cart.push({id:Productid,quantity:1})
-                        total+=val;
-                    }
-                    document.querySelector('.js-cart-quantity').innerHTML = total;
+                    
+                    AddtoCart(Productid);
+                    
+                    displayMessage(Productid);
+                    
                 })
 })
 
