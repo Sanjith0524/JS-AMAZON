@@ -101,3 +101,7 @@
     width: auto;
   }
 }
+
+.quantity-input {
+  width: 30px;
+}
