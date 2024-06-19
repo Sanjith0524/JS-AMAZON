@@ -4,6 +4,7 @@ import { getProduct} from "../../data/products.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import {deliveryOptions,getDeliveryOption} from "../../data/deliveryOptions.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
+import { renderCheckoutHeader } from "./checkoutHeader.js";
 export function renderOrderSummary(){
     let cartSummaryHTML='';
     cart.forEach((cartItem) => {
@@ -90,8 +91,7 @@ export function renderOrderSummary(){
         return html;
     }
     function updateCartQuantity () {
-        let cartQuantity = calculateCartQuantity();
-        document.querySelector('.js-number-of-items').innerHTML = `${cartQuantity} items`;
+        renderCheckoutHeader();
         }
     document.querySelectorAll('.js-delete-link').forEach((link) =>{
         link.addEventListener('click', () => {
@@ -128,9 +128,9 @@ export function renderOrderSummary(){
             updateQuantity(productId,quantity);
             const quantityLabel = document.querySelector(`.js-quantity-label-${productId}`);
             quantityLabel.innerHTML = quantity;
-            const numberofitems = document.querySelector(`.js-number-of-items`);
-            numberofitems.innerHTML = ` ${calculateCartQuantity()} items `;
+            
             renderPaymentSummary();
+            renderCheckoutHeader();
         })})
 
     document.querySelectorAll('.js-delivery-option').forEach((element) => {
