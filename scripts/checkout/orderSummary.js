@@ -1,30 +1,18 @@
 import { calculateCartQuantity, cart,removeFromCart,updateQuantity,updateDeliveryOptions} from "../../data/cart.js";
 import { formatCurrency } from "../utils/money.js";
-import { products } from "../../data/products.js";
+import { getProduct} from "../../data/products.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
-import {deliveryOptions} from "../../data/deliveryOptions.js";
-
+import {deliveryOptions,getDeliveryOption} from "../../data/deliveryOptions.js";
+import { renderPaymentSummary } from "./paymentSummary.js";
 export function renderOrderSummary(){
     let cartSummaryHTML='';
     cart.forEach((cartItem) => {
     const productId = cartItem.id;
-    let matchingproduct;
-
-    products.forEach((products) => {
-        if (productId == products.id) {
-        matchingproduct = products;
-        }
-    });
+    const matchingproduct = getProduct(productId);
     updateCartQuantity();
 
     const deliveryOptionId = cartItem.deliveryOptionId;
-    let deliveryOption;
-
-    deliveryOptions.forEach((option) => {
-        if (option.id === deliveryOptionId){
-            deliveryOption = option;
-        }
-    })
+    let deliveryOption = getDeliveryOption(deliveryOptionId);
     const today = dayjs();
     const deliveryDate = today.add(deliveryOption.deliveryDays,'days');
     const dateString = deliveryDate.format('dddd, MMMM D');
@@ -112,7 +100,9 @@ export function renderOrderSummary(){
         updateCartQuantity();
         const item = document.querySelector(`.js-cart-item-container-${productId}`);
         item.remove();
+        renderPaymentSummary();
         })
+        
     });
 
 
@@ -140,6 +130,7 @@ export function renderOrderSummary(){
             quantityLabel.innerHTML = quantity;
             const numberofitems = document.querySelector(`.js-number-of-items`);
             numberofitems.innerHTML = ` ${calculateCartQuantity()} items `;
+            renderPaymentSummary();
         })})
 
     document.querySelectorAll('.js-delivery-option').forEach((element) => {
@@ -147,6 +138,7 @@ export function renderOrderSummary(){
             const {productId,deliveryOptionId} = element.dataset;
             updateDeliveryOptions(productId,deliveryOptionId);
             renderOrderSummary();
+            renderPaymentSummary();
         });
     });
 }
