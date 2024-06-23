@@ -5,6 +5,8 @@ import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import {calculateDeliveryDate, deliveryOptions,getDeliveryOption} from "../../data/deliveryOptions.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
 import { renderCheckoutHeader } from "./checkoutHeader.js";
+
+
 export function renderOrderSummary(){
     let cartSummaryHTML='';
     cart.forEach((cartItem) => {
@@ -17,7 +19,7 @@ export function renderOrderSummary(){
     const dateString = calculateDeliveryDate(deliveryOption);
 
     cartSummaryHTML += `
-        <div class="cart-item-container js-cart-item-container-${matchingproduct.id}">
+        <div class="cart-item-container js-cart-item-container js-cart-item-container-${matchingproduct.id}">
             <div class="delivery-date">
                 Delivery date: ${dateString}
             </div>
@@ -33,7 +35,7 @@ export function renderOrderSummary(){
                 <div class="product-price">
                     $${formatCurrency(matchingproduct.priceCents)}
                 </div>
-                <div class="product-quantity">
+                <div class="product-quantity js-product-quantity-${matchingproduct.id}">
                     <span>
                     Quantity: <span class="quantity-label js-quantity-label-${matchingproduct.id}">${
                     cartItem.quantity
@@ -44,7 +46,7 @@ export function renderOrderSummary(){
                     </span>
                     <input class="quantity-input js-input-${matchingproduct.id}">
                     <span class="save-quantity-link js-save-link" data-product-id="${matchingproduct.id}">Save</span>
-                    <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingproduct.id}">
+                    <span class="delete-quantity-link link-primary js-delete-link js-delete-link-${matchingproduct.id}" data-product-id="${matchingproduct.id}">
                     Delete
                     </span>
                 </div>
