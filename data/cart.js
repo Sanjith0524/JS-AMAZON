@@ -1,6 +1,6 @@
 export let cart;
 loadFromStorage();
-let total = 0;
+
 
 
 export function loadFromStorage() {
@@ -47,13 +47,13 @@ export function AddtoCart(Productid) {
       let val = Number(quan);
   if(matchingitem){
       matchingitem.quantity+=val;
-      total+=val;
+      
   }
   else{
       cart.push({id:Productid,
         quantity:val,
         deliveryOptionId:'1'})
-      total+=val;
+      
   }
   saveToStorage();
   }
