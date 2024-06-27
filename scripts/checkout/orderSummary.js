@@ -1,6 +1,6 @@
 import { calculateCartQuantity, cart,removeFromCart,updateQuantity,updateDeliveryOptions} from "../../data/cart.js";
 import { formatCurrency } from "../utils/money.js";
-import { getProduct} from "../../data/products.js";
+import { getProduct } from "../../data/products.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import {calculateDeliveryDate, deliveryOptions,getDeliveryOption} from "../../data/deliveryOptions.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
@@ -139,6 +139,5 @@ export function renderOrderSummary(){
             renderPaymentSummary();
         });
     });
+    
 }
-
-renderOrderSummary();
