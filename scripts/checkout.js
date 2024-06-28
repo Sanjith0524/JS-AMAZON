@@ -6,7 +6,24 @@ import { loadCart } from "../data/cart.js";
 //import '../data/cart-class.js';
 // import '../data/backend-practice.js'; 
 
-Promise.all([
+async function loadpage(){
+    try{
+        await loadProductsFetch();
+        await new Promise((resolve) => {
+        loadCart(() => {
+            resolve();
+        });
+    });
+    }
+    catch (error){
+        console.log('Please try again later');
+    }  
+    renderOrderSummary();
+    renderCheckoutHeader();
+    renderPaymentSummary();
+}
+loadpage();
+/*Promise.all([
     loadProductsFetch(),
     new Promise((resolve) => {
         loadCart(() => {
@@ -18,4 +35,4 @@ Promise.all([
     renderCheckoutHeader();
     renderPaymentSummary();
 });
-
+*/
