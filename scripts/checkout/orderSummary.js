@@ -6,11 +6,10 @@ import {calculateDeliveryDate, deliveryOptions,getDeliveryOption} from "../../da
 import { renderPaymentSummary } from "./paymentSummary.js";
 import { renderCheckoutHeader } from "./checkoutHeader.js";
 
-
 export function renderOrderSummary(){
     let cartSummaryHTML='';
     cart.forEach((cartItem) => {
-    const productId = cartItem.id;
+    const productId = cartItem.productId;
     const matchingproduct = getProduct(productId);
     updateCartQuantity();
 
@@ -139,5 +138,4 @@ export function renderOrderSummary(){
             renderPaymentSummary();
         });
     });
-    
 }

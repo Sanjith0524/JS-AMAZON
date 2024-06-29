@@ -7,23 +7,12 @@ export function loadFromStorage() {
   cart = JSON.parse(localStorage.getItem('cart'));
   if(!cart){
     cart = [{
-      id:"e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+      productId:"e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
       quantity:2,
       deliveryOptionId : '1'
     },{
-      id:"15b6fc6f-327a-4ec4-896f-486349e85a3d",
+      productId:"15b6fc6f-327a-4ec4-896f-486349e85a3d",
       quantity:1,
-      deliveryOptionId : '2'
-    }];
-  };
-  if(!cart){
-    cart = [{
-      id:"e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-      quantity:2,
-      deliveryOptionId : '1'
-    },{
-      id:"15b6fc6f-327a-4ec4-896f-486349e85a3d",
-      quantity:3,
       deliveryOptionId : '2'
     }];
   };
@@ -34,11 +23,11 @@ export function saveToStorage() {
 }
 
 
-
 export function AddtoCart(Productid) {
     let matchingitem;
+    console.log(Productid);
     cart.forEach((product)=> {
-      if (Productid === product.id){
+      if (Productid === product.productId){
           matchingitem = product;
           }
       })
@@ -50,7 +39,7 @@ export function AddtoCart(Productid) {
       
   }
   else{
-      cart.push({id:Productid,
+      cart.push({productId:Productid,
         quantity:val,
         deliveryOptionId:'1'})
       
@@ -83,7 +72,7 @@ export function removeFromCart(productId){
   const newCart = [];
 
   cart.forEach((cartItem) => {
-    if ( cartItem.id !== productId ){
+    if ( cartItem.productId !== productId ){
       newCart.push(cartItem);
     }
       });
@@ -101,7 +90,7 @@ export function calculateCartQuantity(){
 
 export function updateQuantity (productId,quantity){
   cart.forEach((cartItem) => {
-    if (cartItem.id == productId)
+    if (cartItem.productId == productId)
     cartItem.quantity = quantity;
     saveToStorage()
 })
@@ -109,8 +98,9 @@ export function updateQuantity (productId,quantity){
 
 export function updateDeliveryOptions(productId,deliveryOptionId) {
   let matchingitem;
+  
     cart.forEach((product)=> {
-      if (productId === product.id){
+      if (product.productId === productId){
           matchingitem = product;
           }
       });

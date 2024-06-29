@@ -16,12 +16,12 @@ describe("test suite : renderOrderSummary", () => {
     spyOn(localStorage, "getItem").and.callFake(() => {
       return JSON.stringify([
         {
-          id: product1,
+          productId: product1,
           quantity: 2,
           deliveryOptionId: "1",
         },
         {
-          id: product2,
+          productId: product2,
           quantity: 3,
           deliveryOptionId: "2",
         },
@@ -49,6 +49,6 @@ describe("test suite : renderOrderSummary", () => {
     expect(
       document.querySelector(`.js-cart-item-container-${product2}`)
     ).not.toEqual(null);
-    expect(cart[0].id).toEqual("15b6fc6f-327a-4ec4-896f-486349e85a3d");
+    expect(cart[0].productId).toEqual("15b6fc6f-327a-4ec4-896f-486349e85a3d");
   });
 });
